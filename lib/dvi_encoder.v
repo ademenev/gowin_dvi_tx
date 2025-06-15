@@ -47,7 +47,7 @@ wire [8:0]qm_1 = {
 wire [3:0]ones_in_data = ones(data);
 wire [8:0]qm = (ones_in_data > 4) || ((ones_in_data == 4) && !data[0]) ? qm_1 : qm_0;
 wire [3:0]ones_in_qm = ones(qm[7:0]);
-wire [8:0] disparity = {ones_in_qm, 1'b0} - 5'd8;
+wire [4:0] disparity = {ones_in_qm, 1'b0} - 5'd8;
 wire invert = bias[4] ^ (ones_in_qm[3:2] != 0);
 
 always@(posedge pix_clk) begin

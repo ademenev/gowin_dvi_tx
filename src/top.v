@@ -8,7 +8,7 @@ output [2:0] O_tmds_data_p;
 output [2:0] O_tmds_data_n;
 
 wire dvi_clk;
-wire pix_clk;
+wire pix_clk /*synthesis syn_keep=1*/;
 
 gowin_rpll pll(dvi_clk, sys_clk);
 
@@ -52,7 +52,7 @@ always@(posedge pix_clk) begin
     counter <= 0;
     colors <= colors + 1'b1;
   end else begin
-    counter <= counter + 1;
+    counter <= counter + 1'b1;
   end
 end
 
