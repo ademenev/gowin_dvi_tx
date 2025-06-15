@@ -28,15 +28,12 @@ output O_tmds_clk_n;
 output [2:0] O_tmds_data_p;
 output [2:0] O_tmds_data_n;
 
-localparam initial_clock =  10'b0001111100;
-
 wire tmds_clock;
 wire tmds_red;
 wire tmds_green;
 wire tmds_blue;
 
 
-reg [9:0]clock_reg = initial_clock;
 wire [9:0]encoded_blue;
 wire [9:0]encoded_green;
 wire [9:0]encoded_red;
