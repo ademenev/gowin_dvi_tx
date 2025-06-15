@@ -42,7 +42,7 @@ dvi_tx dvi_tx_inst(
   O_tmds_data_n
 );
 
-vesa timing_gen(column, row, vsync, hsync, data_en, pix_clk);
+vesa timing_gen(1'b1, column, row, vsync, hsync, data_en, pix_clk);
 
 always@(posedge pix_clk) begin
   if (column == 0) begin

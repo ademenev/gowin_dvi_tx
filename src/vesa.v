@@ -2,8 +2,9 @@
 VESA timing generator
 */
 
-module vesa(column, row, vsync, hsync, data_en, clock);
+module vesa(rst_n, column, row, vsync, hsync, data_en, clock);
 
+input rst_n;
 input clock;
 output reg [10:0] column;
 output reg [10:0] row;
@@ -43,7 +44,16 @@ assign row_addr_int = row_counter - (v_sync_time + v_bporch_time + v_tborder_tim
 wire v_en = (row_addr_int < v_addr_time);
 wire h_en = (col_addr_int < h_addr_time);
 
-always@(posedge clock) begin
+always@(posedge clock or negedge rst_n) begin
+  if (!rst_n) begin
+    col_counter <= 0;
+    row_counter <= 0;
+    column <= 0;
+    row <= 0;
+    vsync <= 0;
+    hsync <= 0;
+    data_en <= 0;
+  end else begin
     if (last_col) col_counter <= 12'b0;
     else col_counter <= col_counter + 1'b1;
     if (last_row & last_col) row_counter <= 12'b0;
@@ -53,6 +63,7 @@ always@(posedge clock) begin
     row <= row_addr_int[10:0];
     data_en <= v_en & h_en;
     vsync <= (row_counter < v_sync_time);
+  end
 end
 
 
